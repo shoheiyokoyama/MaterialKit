@@ -14,15 +14,15 @@ public class MKLabel: UILabel {
             mkLayer.enableMask(maskEnabled)
         }
     }
-    @IBInspectable public var rippleLocation: MKRippleLocation = .TapLocation {
+    public var rippleLocation: MKRippleLocation = .TapLocation {
         didSet {
             mkLayer.rippleLocation = rippleLocation
         }
     }
     @IBInspectable public var rippleAniDuration: Float = 0.75
     @IBInspectable public var backgroundAniDuration: Float = 1.0
-    @IBInspectable public var rippleAniTimingFunction: MKTimingFunction = .Linear
-    @IBInspectable public var backgroundAniTimingFunction: MKTimingFunction = .Linear
+    public var rippleAniTimingFunction: MKTimingFunction = .Linear
+    public var backgroundAniTimingFunction: MKTimingFunction = .Linear
     @IBInspectable public var backgroundAniEnabled: Bool = true {
         didSet {
             if !backgroundAniEnabled {
@@ -92,6 +92,18 @@ public class MKLabel: UILabel {
         if let firstTouch = touches.first {
             let location = firstTouch.locationInView(self)
             animateRipple(location)
+        }
+    }
+}
+
+// MARK - private methods
+private extension MKLabel {
+    @IBInspectable private var rippleLocationAdapter: Int {
+        get {
+            return rippleLocation.rawValue
+        }
+        set(index) {
+            rippleLocation = MKRippleLocation(rawValue: index) ?? .TapLocation
         }
     }
 }

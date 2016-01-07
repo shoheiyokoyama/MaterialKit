@@ -15,7 +15,7 @@ public class MKTextField : UITextField {
     @IBInspectable public var floatingLabelBottomMargin: CGFloat = 2.0
     @IBInspectable public var floatingPlaceholderEnabled: Bool = false
 
-    @IBInspectable public var rippleLocation: MKRippleLocation = .TapLocation {
+    public var rippleLocation: MKRippleLocation = .TapLocation {
         didSet {
             mkLayer.rippleLocation = rippleLocation
         }
@@ -24,7 +24,7 @@ public class MKTextField : UITextField {
     @IBInspectable public var rippleAniDuration: Float = 0.75
     @IBInspectable public var backgroundAniDuration: Float = 1.0
     @IBInspectable public var shadowAniEnabled: Bool = true
-    @IBInspectable public var rippleAniTimingFunction: MKTimingFunction = .Linear
+    public var rippleAniTimingFunction: MKTimingFunction = .Linear
     
     @IBInspectable public var cornerRadius: CGFloat = 2.5 {
         didSet {
@@ -45,7 +45,7 @@ public class MKTextField : UITextField {
     }
 
     // floating label
-    @IBInspectable public var floatingLabelFont: UIFont = UIFont.boldSystemFontOfSize(10.0) {
+    public var floatingLabelFont: UIFont = UIFont.boldSystemFontOfSize(10.0) {
         didSet {
             floatingLabel.font = floatingLabelFont
         }
@@ -168,6 +168,15 @@ public class MKTextField : UITextField {
 
 // MARK - private methods
 private extension MKTextField {
+    @IBInspectable private var rippleLocationAdapter: Int {
+        get {
+            return rippleLocation.rawValue
+        }
+        set(index) {
+            rippleLocation = MKRippleLocation(rawValue: index) ?? .TapLocation
+        }
+    }
+
     private func setFloatingLabelOverlapTextField() {
         let textRect = textRectForBounds(bounds)
         var originX = textRect.origin.x
