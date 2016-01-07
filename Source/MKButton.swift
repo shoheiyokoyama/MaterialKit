@@ -17,7 +17,7 @@ public class MKButton : UIButton
         }
     }
     public var rippleLocation: MKRippleLocation = .TapLocation {
-        didSet {  
+        didSet {
             mkLayer.rippleLocation = rippleLocation
         }
     }
